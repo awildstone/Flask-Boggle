@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/app.css">
+    <title>Boggle!</title>
+</head>
+<body>
+    <h1>Boggle!</h1>
+    
+    <div class="game_container">
+        <table class="game_board">
+            <tr>
+                <th class="board_control" colspan="5">
+                    <div class="highscore">High Score is {{ high_score }} in {{ num_games  }} plays.</div>
+                    <button id="start_game">Start Game</button>
+                    <button id="new_game">New Game</button>
+                    <div class="game_timer"></div>
+                    <form class="guess_form">
+                        <label for="guess">Enter your guess: </label><input type="text" name="guess" id="guess" placeholder="word">
+                        <button>Submit</button>
+                    </form>
+                    </form>
+                </th>
+            </tr>
+            {% for row in game_board %}
+            <tr class="board_row">
+                {% for cell in row %}
+                <td class="board_tile"><b>{{ cell }}</b></td>
+                {% endfor %} 
+            </tr>
+            {% endfor %}
+            <tr>
+                <td class="board_control" colspan="5">
+                    <div class="score">Score: </div>
+                    <br><div class="message"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- JQuery Script -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Axios Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js" integrity="sha512-otOZr2EcknK9a5aa3BbMR9XOjYKtxxscwyRHN6zmdXuRfJ5uApkHB7cz1laWk2g8RKLzV9qv/fl3RPwfCuoxHQ==" crossorigin="anonymous"></script>
+
+    <!-- App JS File -->
+    <script src="/static/app.js"></script>
+
+</body>
+</html>
