@@ -1,6 +1,6 @@
 from unittest import TestCase
 from app import app
-from flask import session
+from flask import session, request, jsonify
 from boggle import Boggle
 
 
@@ -42,3 +42,17 @@ class FlaskTests(TestCase):
             res = client.get('/check-guess?guess=djuedjeumdwo')
             self.assertEqual(res.status_code, 200);
             self.assertEqual(res.json['result'], 'not-word')
+    
+    def test_update_stats(self):
+        with app.test_client() as client:
+            #make new board
+            res = client.get('/')
+            
+            res = client.post('/stats', json=({ 'params': { 'score': 5 }}))
+            json_res = res.get_data(as_text=True)
+
+            #check that status is 200 for post request
+            self.assertEqual(res.status_code, 200)
+
+            #check that response contains score
+            self.assertIn(('"score": 5'), json_res)
