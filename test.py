@@ -27,15 +27,18 @@ class FlaskTests(TestCase):
 
     def test_check_guess(self):
         with app.test_client() as client:
+            #make new board
             res = client.get('/')
 
             #check that status is 200
             self.assertEqual(res.status_code, 200);
 
-            #check that a valid word that is too long gets 'not-on-board' response
+            #check that response status is 200 and a valid word that is too long gets 'not-on-board' response
             res = client.get('/check-guess?guess=acmesthesia')
+            self.assertEqual(res.status_code, 200);
             self.assertEqual(res.json['result'], 'not-on-board')
 
-            #check that fake word gets 'not-word' response
+            #check that response status is 200 and a fake word gets 'not-word' response
             res = client.get('/check-guess?guess=djuedjeumdwo')
+            self.assertEqual(res.status_code, 200);
             self.assertEqual(res.json['result'], 'not-word')
